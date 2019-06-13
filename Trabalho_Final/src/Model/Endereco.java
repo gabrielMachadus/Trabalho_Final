@@ -11,7 +11,7 @@ package Model;
  */
 class Endereco {
     private String rua = "ex:Rua da Penha";
-    private int numero = 5;
+    private int numero = 0;
     private String cep = "90.120-190";
     private String complemento = "ex: AP 5A";
     private String cidade="ex: Cachoeirinha";
