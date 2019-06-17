@@ -10,10 +10,10 @@ package Model;
  * @author gabriel2.silva
  */
 public class Pessoa {
-    private String nome;
+    private String nome="Não Informado";
     private String cpf = "000.000.000-00";
     private String rg="11234567890";
-    private String login;
+    private String login = "user001";
     private Endereco endereco;
     private String telefone="(00)000-000-000";
 
