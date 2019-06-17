@@ -9,7 +9,7 @@ package Model;
  *
  * @author gabriel2.silva
  */
-class Endereco {
+public class Endereco {
     private String rua = "ex:Rua da Penha";
     private int numero = 0;
     private String cep = "90.120-190";
