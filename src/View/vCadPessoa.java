@@ -11,7 +11,11 @@ import Model.Pessoa;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JFormattedTextField;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -311,12 +315,17 @@ public class vCadPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextFieldCpfFocusGained
 
     private void jListClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClientesMouseClicked
-        int indice = jListClientes.getSelectedIndex();
-        Pessoa p = clientes.get(indice);
-        carregaPessoaTela(p);        
-        jButtonAlterar.setEnabled(true);
-        jButtonCadastrar.setEnabled(false);
-        jButtonExcluir.setEnabled(true);
+        try {
+             int indice = jListClientes.getSelectedIndex();
+            Pessoa p = clientes.get(indice);
+            carregaPessoaTela(p);        
+            jButtonAlterar.setEnabled(true);
+            jButtonCadastrar.setEnabled(false);
+            jButtonExcluir.setEnabled(true);
+        } catch (Exception e) {
+            System.out.print("Exceção ocorreu, erro "+e.getMessage());
+        }
+           
     }//GEN-LAST:event_jListClientesMouseClicked
 
     private void jFormattedTextFieldTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldTelefoneFocusGained
@@ -378,15 +387,19 @@ public class vCadPessoa extends javax.swing.JFrame {
         jButtonExcluir.setEnabled(false);
         preencheJListGenerica();
     }//GEN-LAST:event_formComponentShown
-
+ControllerPessoa cp = new ControllerPessoa();
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         if(jButtonCadastrar.getText().equals("Salvar")){
             jButtonCadastrar.setText("Cadastrar");           
             bloqueiaComponentes();
             jListClientes.setEnabled(true);
+            
+            clientes = cp.cadastrarPessoa(this);
+            atualizaJList();
             JOptionPane.showMessageDialog(this, "Dados cadastrados!!");
             jButtonAlterar.setEnabled(true);
             jButtonExcluir.setEnabled(true);
+            
         }else if(jButtonCadastrar.getText().equals("Cadastrar")){
             jButtonCadastrar.setText("Salvar");
             geraPessoaGenericaTela();
@@ -440,7 +453,7 @@ public class vCadPessoa extends javax.swing.JFrame {
       jTextFieldCidade.setText(end1.getCidade());
       jTextFieldComplemento.setText(end1.getComplemento());
       jTextFieldUsuario.setText(p.getLogin());
-      jTextFieldUsuario.setText(p.getSenha());
+      jPasswordField.setText(p.getSenha());
    }
    
    void carregaPessoaTela(Pessoa p){
@@ -451,9 +464,11 @@ public class vCadPessoa extends javax.swing.JFrame {
        jFormattedTextFieldRg.setText(p.getRg());
        jTextFieldRua.setText(end1.getRua());
        jTextFieldNumero.setText(""+end1.getNumero());
-      jFormattedTextFieldCep.setText( end1.getCep());
-      jTextFieldCidade.setText(end1.getCidade());
-      jTextFieldComplemento.setText(end1.getComplemento());
+       jFormattedTextFieldCep.setText( end1.getCep());
+       jTextFieldCidade.setText(end1.getCidade());
+       jTextFieldComplemento.setText(end1.getComplemento());
+       jTextFieldUsuario.setText(p.getLogin());
+       jPasswordField.setText(p.getSenha());
    }
    
    
@@ -467,7 +482,8 @@ public class vCadPessoa extends javax.swing.JFrame {
        jTextFieldComplemento.setEnabled(false);
        jTextFieldCidade.setEnabled(false);
        jFormattedTextFieldCep.setEnabled(false);
-     
+       jTextFieldUsuario.setEnabled(false);
+       jPasswordField.setEnabled(false);
    }
    
     void liberaComponentes(){
@@ -481,7 +497,8 @@ public class vCadPessoa extends javax.swing.JFrame {
        jTextFieldComplemento.setEnabled(true);
        jTextFieldCidade.setEnabled(true);
        jFormattedTextFieldCep.setEnabled(true);
-       
+       jTextFieldUsuario.setEnabled(true);
+       jPasswordField.setEnabled(true);
     }
     //alterar metodo para carregar dados de arquivo de texto
     void preencheJListGenerica(){
@@ -524,13 +541,108 @@ public class vCadPessoa extends javax.swing.JFrame {
     }
     
     private ArrayList<Pessoa> clientes = new ArrayList<Pessoa>();
-    private Controller.ControllerPessoa cp = new ControllerPessoa();
-    public ArrayList<Pessoa> getClientes() {
+   public ArrayList<Pessoa> getClientes() {
         return clientes;
     }
 
     public void setClientes(ArrayList<Pessoa> clientes) {
         this.clientes = clientes;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldCep() {
+        return jFormattedTextFieldCep;
+    }
+
+    public void setjFormattedTextFieldCep(JFormattedTextField jFormattedTextFieldCep) {
+        this.jFormattedTextFieldCep = jFormattedTextFieldCep;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldCpf() {
+        return jFormattedTextFieldCpf;
+    }
+
+    public void setjFormattedTextFieldCpf(JFormattedTextField jFormattedTextFieldCpf) {
+        this.jFormattedTextFieldCpf = jFormattedTextFieldCpf;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldRg() {
+        return jFormattedTextFieldRg;
+    }
+
+    public void setjFormattedTextFieldRg(JFormattedTextField jFormattedTextFieldRg) {
+        this.jFormattedTextFieldRg = jFormattedTextFieldRg;
+    }
+
+    public JFormattedTextField getjFormattedTextFieldTelefone() {
+        return jFormattedTextFieldTelefone;
+    }
+
+    public void setjFormattedTextFieldTelefone(JFormattedTextField jFormattedTextFieldTelefone) {
+        this.jFormattedTextFieldTelefone = jFormattedTextFieldTelefone;
+    }
+
+    public JList<String> getjListClientes() {
+        return jListClientes;
+    }
+
+    public void setjListClientes(JList<String> jListClientes) {
+        this.jListClientes = jListClientes;
+    }
+
+    public JPasswordField getjPasswordField() {
+        return jPasswordField;
+    }
+
+    public void setjPasswordField(JPasswordField jPasswordField) {
+        this.jPasswordField = jPasswordField;
+    }
+
+    public JTextField getjTextFieldCidade() {
+        return jTextFieldCidade;
+    }
+
+    public void setjTextFieldCidade(JTextField jTextFieldCidade) {
+        this.jTextFieldCidade = jTextFieldCidade;
+    }
+
+    public JTextField getjTextFieldComplemento() {
+        return jTextFieldComplemento;
+    }
+
+    public void setjTextFieldComplemento(JTextField jTextFieldComplemento) {
+        this.jTextFieldComplemento = jTextFieldComplemento;
+    }
+
+    public JTextField getjTextFieldNome() {
+        return jTextFieldNome;
+    }
+
+    public void setjTextFieldNome(JTextField jTextFieldNome) {
+        this.jTextFieldNome = jTextFieldNome;
+    }
+
+    public JTextField getjTextFieldNumero() {
+        return jTextFieldNumero;
+    }
+
+    public void setjTextFieldNumero(JTextField jTextFieldNumero) {
+        this.jTextFieldNumero = jTextFieldNumero;
+    }
+
+    public JTextField getjTextFieldRua() {
+        return jTextFieldRua;
+    }
+
+    public void setjTextFieldRua(JTextField jTextFieldRua) {
+        this.jTextFieldRua = jTextFieldRua;
+    }
+
+    public JTextField getjTextFieldUsuario() {
+        return jTextFieldUsuario;
+    }
+
+    public void setjTextFieldUsuario(JTextField jTextFieldUsuario) {
+        this.jTextFieldUsuario = jTextFieldUsuario;
     }
     
 

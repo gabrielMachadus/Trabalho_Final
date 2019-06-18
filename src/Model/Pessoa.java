@@ -5,6 +5,8 @@
  */
 package Model;
 
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author gabriel2.silva

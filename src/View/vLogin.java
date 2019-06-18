@@ -5,8 +5,11 @@
  */
 package View;
 
+import Controller.ControllerPessoa;
 import Model.Pessoa;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -19,6 +22,8 @@ public class vLogin extends javax.swing.JFrame {
      */
     public vLogin() {
         initComponents();
+        ControllerPessoa cp = new ControllerPessoa();
+        clientes = cp.preencherLista();
     }
 
     /**
@@ -128,41 +133,76 @@ public class vLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrarActionPerformed
-       char[] pass = jPassword.getPassword();
-       
-        System.out.println(pass.toString());
-        validaLogin(jTextFieldUsuario.getText());
-        
-        this.dispose();
-        vMenu principal = new vMenu();
-        principal.setVisible(true);
+        mostrar_mensagem_validacao(validaLogin(jTextFieldUsuario.getText(),jPassword));       
     }//GEN-LAST:event_jButtonEntrarActionPerformed
 
     private void jButtonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFecharActionPerformed
-        
+        this.dispose();
     }//GEN-LAST:event_jButtonFecharActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         
     }//GEN-LAST:event_formComponentShown
-    
-    public int validaLogin(String login){
+    /**
+     * 
+     * @param login
+     * @param pw - Objeto JPassword field
+     * @return  1 - login ok 2 - senha invalida 3- usuario nao existe 0 retorno
+     */
+    public int validaLogin(String login,JPasswordField pw){
         //pega nome do componente e verifica na basa de dados list pessoas
         //se o nome existe - return 1 true else 0
         //realiza login
+        
         login = jTextFieldUsuario.getText();
-        int x=3;
-        for(Pessoa p: clientes){
-            if(p.getLogin().equals(login)){
-                x = 1;
-                return x;
-                
-            }else{
-                x = 0;
-                return x;
+        String pass = String.valueOf(pw.getPassword());
+        int x=5;
+        if(jTextFieldUsuario.getText().isEmpty() | jPassword.getText().equals("")){
+            x =4 ;
+           
+        }else{
+            for(Pessoa p: clientes){
+                if(p.getLogin().equalsIgnoreCase(login)){
+                    if(pass.equals(p.getSenha())){
+                        //"Login realizado com sucesso!"; 
+                        x =  1;
+                        break;
+                    }else{
+                        //"Senha invalida.."
+                        x = 2;
+                        break;
+                    }
+
+                }else{
+                    //"usuario não existe"
+                    x =  3;
+
+                }
             }
         }
-        return 2;            
+        
+        return x;            
+    }
+    
+    void mostrar_mensagem_validacao(int cod_valida){
+        switch(cod_valida){
+            case 1:
+                 JOptionPane.showMessageDialog(this,"Login realizado com sucesso!");
+                 this.dispose();
+                vMenu principal = new vMenu();
+                principal.setVisible(true);
+        
+                break;
+            case 2:
+                 JOptionPane.showMessageDialog(this,"Senha Inválida!");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(this,"Usuário não existe!");
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(this,"Necessário informar usuário e senha para login!");
+                break;
+        }
     }
     
     //Fazer metodo que le os dados do arquivo ao abrir o sistema

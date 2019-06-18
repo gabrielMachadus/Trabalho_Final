@@ -9,22 +9,25 @@ import Model.Pessoa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import Model.Endereco;
+import View.vCadPessoa;
 /**
  *
  * @author Gabriel.Machado
  */
 public class ControllerPessoa {
-    public static ArrayList<Pessoa> cadastrarPessoa(ArrayList<Pessoa> clientes){
+    ArrayList<Pessoa> clientes;
+    public  ArrayList<Pessoa> cadastrarPessoa(vCadPessoa frm){
         Pessoa p = new Pessoa();
         Endereco end1 = new Endereco();
-        p.setNome(JOptionPane.showInputDialog("Digite o nome do Cliente:",p.getNome()));
-        end1.setRua(JOptionPane.showInputDialog("Digite a rua:",end1.getRua()));
-        end1.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Digite o número:",end1.getNumero())));
-        end1.setCidade(JOptionPane.showInputDialog("Digite a cidade:",end1.getCidade()));
-        end1.setCep(JOptionPane.showInputDialog("Digite o CEP:",end1.getCep()));
-        p.setRg(JOptionPane.showInputDialog("Digite o RG:",p.getRg()));
-        p.setCpf(JOptionPane.showInputDialog("Digite o CPF:",p.getCpf()));
-        p.setTelefone(JOptionPane.showInputDialog("Digite o telefone:",p.getTelefone()));
+        JOptionPane.showMessageDialog(null, "entrei cadastrados!!");
+        p.setNome(frm.getjTextFieldNome().getText());
+        end1.setRua(frm.getjTextFieldRua().getText());
+        end1.setNumero(Integer.parseInt(frm.getjTextFieldNumero().getText()));
+        end1.setCidade(frm.getjTextFieldCidade().getText());
+        end1.setCep(frm.getjFormattedTextFieldCep().getText());
+        p.setRg(frm.getjFormattedTextFieldRg().getText());
+        p.setCpf(frm.getjFormattedTextFieldCpf().getText());
+        p.setTelefone(frm.getjFormattedTextFieldTelefone().getText());
         clientes.add(p);
         return clientes;
     }
@@ -61,15 +64,17 @@ public class ControllerPessoa {
      }
      
      
-     
-     public  ArrayList<Pessoa> preencherLista(){
+     /***
+      Este método serve para preencher a lista com objetos de teste
+      */
+     public   ArrayList<Pessoa> preencherLista(){
          ArrayList<Pessoa> lista = new ArrayList<>();
          Endereco end1 = new Endereco("Rua X,", 1523, "123.123.000-63", "S/C", "POA - RS");
-         Pessoa p0 = new Pessoa("João Bernardo dos Santos", "025.162.410-85", "74455541559", "login1", "(51)342-999-999",end1);
-         Pessoa p1 = new Pessoa("João Bernardo dos Santos", "025.162.410-85", "74455541559", "login2", "(51)342-999-999",end1);
-         Pessoa p2 = new Pessoa("João Bernardo dos Santos", "025.162.410-85", "74455541559", "login3", "(51)342-999-999",end1);
-         Pessoa p3 = new Pessoa("João Bernardo dos Santos", "025.162.410-85", "74455541559", "login4", "(51)342-999-999",end1);
-         Pessoa p4 = new Pessoa("João Bernardo dos Santos", "025.162.410-85", "74455541559", "login5", "(51)342-999-999",end1);
+         Pessoa p0 = new Pessoa("João Bernardo dos Santos", "025.123.410-12", "74455541559", "usuario", "(51)342-999-999",end1);
+         Pessoa p1 = new Pessoa("Bernardo dos Santos", "025.234.410-85", "74455541559", "login2", "(51)342-999-999",end1);
+         Pessoa p2 = new Pessoa("Marcelo dos Santos", "025.162.543-85", "74455541559", "login3", "(51)342-999-999",end1);
+         Pessoa p3 = new Pessoa("Gabriel Bernardo dos Santos", "123.162.410-85", "74455541559", "login4", "(51)342-999-999",end1);
+         Pessoa p4 = new Pessoa("Carlos Bernardo dos Santos", "025.162.410-85", "74455541559", "login5", "(51)342-999-999",end1);
         
          lista.add(p0);
          lista.add(p1);

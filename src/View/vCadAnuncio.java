@@ -245,11 +245,22 @@ public class vCadAnuncio extends javax.swing.JFrame {
           ImageIcon imagem = new ImageIcon(arquivo.getSelectedFile().getAbsolutePath());
           jLabelImagem.setIcon(new ImageIcon(imagem.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), Image.SCALE_SMOOTH)));
       }
-      //
-      //jTextFieldCaminho.setText(caminho);
-      
     }//GEN-LAST:event_jButtonImagemActionPerformed
 
+    void abre_imagem(String path){
+      JFileChooser arquivo = new JFileChooser();
+      arquivo.setDialogTitle("Selecione uma imagem ");
+      arquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
+      int opcao = arquivo.showOpenDialog(this);
+      if(opcao == JFileChooser.APPROVE_OPTION){
+          File file = new File("Caminho");
+          file = arquivo.getSelectedFile();
+          String caminho = file.getAbsolutePath();
+          jTextFieldCaminho.setText(caminho);
+          ImageIcon imagem = new ImageIcon(path);
+          jLabelImagem.setIcon(new ImageIcon(imagem.getImage().getScaledInstance(jLabelImagem.getWidth(), jLabelImagem.getHeight(), Image.SCALE_SMOOTH)));
+      }
+    }
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
