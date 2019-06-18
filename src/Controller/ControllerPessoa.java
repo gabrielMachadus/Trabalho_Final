@@ -19,7 +19,8 @@ public class ControllerPessoa {
     public  ArrayList<Pessoa> cadastrarPessoa(vCadPessoa frm){
         Pessoa p = new Pessoa();
         Endereco end1 = new Endereco();
-        JOptionPane.showMessageDialog(null, "entrei cadastrados!!");
+        clientes = frm.getClientes();
+        JOptionPane.showMessageDialog(frm, "entrei cadastrados!!");
         p.setNome(frm.getjTextFieldNome().getText());
         end1.setRua(frm.getjTextFieldRua().getText());
         end1.setNumero(Integer.parseInt(frm.getjTextFieldNumero().getText()));

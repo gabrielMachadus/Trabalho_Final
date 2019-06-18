@@ -142,7 +142,7 @@ public class vCadPessoa extends javax.swing.JFrame {
 
         jLabel7.setText("Lista de Cadastrados");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", 1, 0, new java.awt.Font("Dialog", 1, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 24))); // NOI18N
 
         jLabel8.setText("Rua:");
 
@@ -221,7 +221,7 @@ public class vCadPessoa extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
@@ -253,7 +253,7 @@ public class vCadPessoa extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(34, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -316,14 +316,18 @@ public class vCadPessoa extends javax.swing.JFrame {
 
     private void jListClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListClientesMouseClicked
         try {
-             int indice = jListClientes.getSelectedIndex();
-            Pessoa p = clientes.get(indice);
-            carregaPessoaTela(p);        
-            jButtonAlterar.setEnabled(true);
-            jButtonCadastrar.setEnabled(false);
-            jButtonExcluir.setEnabled(true);
+            int indice = jListClientes.getSelectedIndex();
+            if(indice!=-1){
+               Pessoa p = clientes.get(indice);
+                carregaPessoaTela(p);        
+                jButtonAlterar.setEnabled(true);
+                
+                jButtonExcluir.setEnabled(true); 
+            }else{
+                System.out.print("Indice -1");
+            }    
         } catch (Exception e) {
-            System.out.print("Exceção ocorreu, erro "+e.getMessage());
+            System.out.print("Exceção ocorreu no método jListClientesMouseClicked, erro\n "+e.getLocalizedMessage());
         }
            
     }//GEN-LAST:event_jListClientesMouseClicked
@@ -381,25 +385,25 @@ public class vCadPessoa extends javax.swing.JFrame {
         } catch (ParseException e) {
                 e.printStackTrace();
         }
+        
         geraPessoaGenericaTela();
-        bloqueiaComponentes();
+        bloqueiaComponentesTexto();
         jButtonAlterar.setEnabled(false);
         jButtonExcluir.setEnabled(false);
         preencheJListGenerica();
     }//GEN-LAST:event_formComponentShown
-ControllerPessoa cp = new ControllerPessoa();
+    
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         if(jButtonCadastrar.getText().equals("Salvar")){
             jButtonCadastrar.setText("Cadastrar");           
-            bloqueiaComponentes();
-            jListClientes.setEnabled(true);
-            
+            bloqueiaComponentesTexto();
+            jListClientes.setEnabled(true);           
             clientes = cp.cadastrarPessoa(this);
             atualizaJList();
             JOptionPane.showMessageDialog(this, "Dados cadastrados!!");
             jButtonAlterar.setEnabled(true);
-            jButtonExcluir.setEnabled(true);
-            
+            jButtonExcluir.setEnabled(true);  
+             jButtonCadastrar.setEnabled(true); 
         }else if(jButtonCadastrar.getText().equals("Cadastrar")){
             jButtonCadastrar.setText("Salvar");
             geraPessoaGenericaTela();
@@ -472,7 +476,7 @@ ControllerPessoa cp = new ControllerPessoa();
    }
    
    
-   void bloqueiaComponentes(){
+   void bloqueiaComponentesTexto(){
        jTextFieldNome.setEnabled(false);
        jFormattedTextFieldCpf.setEnabled(false);
        jFormattedTextFieldTelefone.setEnabled(false);
@@ -503,26 +507,21 @@ ControllerPessoa cp = new ControllerPessoa();
     //alterar metodo para carregar dados de arquivo de texto
     void preencheJListGenerica(){
         Controller.ControllerPessoa cp = new ControllerPessoa();
-        
-        if(clientes.isEmpty()){
-            clientes = cp.preencherLista();
-        }else{
-            ArrayList<String> nomes =  cp.mostrarLista(clientes);
-            DefaultListModel model = new DefaultListModel();
-            for (String s : nomes) {
-                jListClientes.setModel(model);
-                model.addElement(s);
-            }
-        }
-        
+        clientes = cp.preencherLista();
+        ArrayList<String> nomes =  cp.mostrarLista(clientes);
+            
+        DefaultListModel model = new DefaultListModel();
+        for (String s : nomes) {
+            jListClientes.setModel(model);
+            model.addElement(s);
+        }      
     }
     
     void atualizaJList(){
         ArrayList<String> nomes =  cp.mostrarLista(clientes);
         DefaultListModel model = new DefaultListModel();
         if(nomes.size()>0){
-            JOptionPane.showMessageDialog(this, "Tamanho Lista:"+nomes.size());
-            
+            JOptionPane.showMessageDialog(this, "Tamanho Lista:"+nomes.size());           
             for (String s : nomes) {
                 jListClientes.setModel(model);
                 model.addElement(s);
@@ -645,7 +644,7 @@ ControllerPessoa cp = new ControllerPessoa();
         this.jTextFieldUsuario = jTextFieldUsuario;
     }
     
-
+    private ControllerPessoa cp = new ControllerPessoa();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonCadastrar;
