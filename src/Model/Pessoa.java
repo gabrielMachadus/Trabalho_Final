@@ -5,13 +5,14 @@
  */
 package Model;
 
-import javax.swing.JPasswordField;
+import java.io.Serializable;
+
 
 /**
  *
  * @author gabriel2.silva
  */
-public class Pessoa {
+public class Pessoa implements Serializable{
     private String nome="Não Informado";
     private String cpf = "000.000.000-00";
     private String rg="11234567890";

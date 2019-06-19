@@ -318,7 +318,7 @@ public class vCadPessoa extends javax.swing.JFrame {
         try {
             int indice = jListClientes.getSelectedIndex();
             if(indice!=-1){
-               Pessoa p = clientes.get(indice);
+                Pessoa p = clientes.get(indice);
                 carregaPessoaTela(p);        
                 jButtonAlterar.setEnabled(true);
                 
@@ -445,14 +445,14 @@ public class vCadPessoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextFieldCepFocusGained
 
    void geraPessoaGenericaTela(){
-       Pessoa p = new Pessoa();
-       Endereco end1 = new Endereco();
-       jTextFieldNome.setText(p.getNome());
-       jFormattedTextFieldCpf.setText(p.getCpf());
-       jFormattedTextFieldTelefone.setText(p.getTelefone());
-       jFormattedTextFieldRg.setText(p.getRg());
-       jTextFieldRua.setText(end1.getRua());
-       jTextFieldNumero.setText(""+end1.getNumero());
+      Pessoa p = new Pessoa();
+      Endereco end1 = new Endereco();
+      jTextFieldNome.setText(p.getNome());
+      jFormattedTextFieldCpf.setText(p.getCpf());
+      jFormattedTextFieldTelefone.setText(p.getTelefone());
+      jFormattedTextFieldRg.setText(p.getRg());
+      jTextFieldRua.setText(end1.getRua());
+      jTextFieldNumero.setText(""+end1.getNumero());
       jFormattedTextFieldCep.setText( end1.getCep());
       jTextFieldCidade.setText(end1.getCidade());
       jTextFieldComplemento.setText(end1.getComplemento());
@@ -521,11 +521,12 @@ public class vCadPessoa extends javax.swing.JFrame {
         ArrayList<String> nomes =  cp.mostrarLista(clientes);
         DefaultListModel model = new DefaultListModel();
         if(nomes.size()>0){
-            JOptionPane.showMessageDialog(this, "Tamanho Lista:"+nomes.size());           
+            jListClientes.setModel(model);
             for (String s : nomes) {
-                jListClientes.setModel(model);
+                
                 model.addElement(s);
             }
+            
         }else{
             jListClientes.setModel(model);
             model.addElement("");

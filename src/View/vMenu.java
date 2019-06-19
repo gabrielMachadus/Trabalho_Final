@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.ArquivoDeDados;
 import Model.Pessoa;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @author Gabriel Machado
  */
 public class vMenu extends javax.swing.JFrame {
-    public  ArrayList<Pessoa> clientesMenu = new ArrayList<Pessoa>();
+    
     /**
      * Creates new form vMenu
      */
@@ -39,6 +40,11 @@ public class vMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jMenu1.setText("Cadastros");
 
@@ -94,7 +100,20 @@ public class vMenu extends javax.swing.JFrame {
         cadCartao.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+         ArquivoDeDados ler = new ArquivoDeDados();
 
+        try {
+            lista = ler.lerArquivoDeDados("clientes.txt");
+        } catch (Exception e) { 
+            log.add("Erro ao ler dados do arquivo - Tela vMenu");
+            ler.gravarArquivoDeDados(log, "log.txt");
+        }
+        
+    }//GEN-LAST:event_formWindowOpened
+    ArrayList<String> log = new ArrayList();
+    ArrayList lista = new ArrayList();
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

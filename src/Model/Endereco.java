@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel2.silva
  */
-public class Endereco {
+public class Endereco implements Serializable{
     private String rua = "ex:Rua da Penha";
     private int numero = 0;
     private String cep = "90.120-190";

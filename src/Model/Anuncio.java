@@ -5,11 +5,13 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gabriel Machado
  */
-public class Anuncio {
+public class Anuncio implements Serializable{
     private String caminho_imagem;
     private Produto produto;
     private String login_cadastrador_anuncio;

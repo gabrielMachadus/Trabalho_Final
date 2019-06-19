@@ -6,8 +6,11 @@
 package View;
 
 import Controller.ControllerPessoa;
+import Model.ArquivoDeDados;
 import Model.Pessoa;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -22,8 +25,14 @@ public class vLogin extends javax.swing.JFrame {
      */
     public vLogin() {
         initComponents();
-        ControllerPessoa cp = new ControllerPessoa();
-        clientes = cp.preencherLista();
+        
+        ArquivoDeDados ad = new ArquivoDeDados();
+        try {
+            clientes = ad.lerArquivoDeDados("clientes.txt");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(vLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**

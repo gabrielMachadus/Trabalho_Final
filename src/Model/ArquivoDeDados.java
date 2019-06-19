@@ -10,23 +10,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *essa classe grava objetos em arquivos
+ * 0 - sucesso ao gravar
+ * 1- falha
  * @author Gabriel Machado
  */
-public class ArquivoDeDados {
-    public  void gravarArquivoDeDados(ArrayList lista,String nome_arquivo){
+public class ArquivoDeDados implements Serializable{
+    public  int gravarArquivoDeDados(ArrayList lista,String nome_arquivo){
         try {
             FileOutputStream arquivo = new FileOutputStream(nome_arquivo);
             ObjectOutputStream obj = new ObjectOutputStream(arquivo);
             obj.writeObject(lista);
             obj.flush();
             obj.close();
+            return 0;
         } catch (IOException e) {
            System.out.print("Exceção no método gravarArquivoDeDados"+e.toString());
+           return 1;
         }
+        
     }
     
     /**

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.ArquivoDeDados;
 import Model.Pessoa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -30,18 +31,25 @@ public class ControllerPessoa {
         p.setCpf(frm.getjFormattedTextFieldCpf().getText());
         p.setTelefone(frm.getjFormattedTextFieldTelefone().getText());
         clientes.add(p);
+        ArquivoDeDados arq = new ArquivoDeDados();
+        arq.gravarArquivoDeDados(clientes, "clientes.txt");
         return clientes;
     }
     
-    public static ArrayList<Pessoa> AlterarPessoa(ArrayList<Pessoa> clientes,int indice){
+    public  ArrayList<Pessoa> AlterarPessoa(vCadPessoa frm,int indice){
         Pessoa p = new Pessoa();
         p = clientes.get(indice);
-        Endereco end1 = p.getEndereco();
-        p.setNome(JOptionPane.showInputDialog("Digite o nome do Cliente:",p.getNome()));
-        end1.setRua(JOptionPane.showInputDialog("Digite a rua:",end1.getRua()));
-        end1.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Digite o número:",end1.getNumero())));
-        end1.setCidade(JOptionPane.showInputDialog("Digite a cidade:",end1.getCidade()));
-        end1.setCep(JOptionPane.showInputDialog("Digite o CEP:",end1.getCep()));
+        Endereco end1 = new Endereco();
+        clientes = frm.getClientes();
+        JOptionPane.showMessageDialog(frm, "entrei cadastrados!!");
+        p.setNome(frm.getjTextFieldNome().getText());
+        end1.setRua(frm.getjTextFieldRua().getText());
+        end1.setNumero(Integer.parseInt(frm.getjTextFieldNumero().getText()));
+        end1.setCidade(frm.getjTextFieldCidade().getText());
+        end1.setCep(frm.getjFormattedTextFieldCep().getText());
+        p.setRg(frm.getjFormattedTextFieldRg().getText());
+        p.setCpf(frm.getjFormattedTextFieldCpf().getText());
+        p.setTelefone(frm.getjFormattedTextFieldTelefone().getText());
         clientes.add(indice,p);
         return clientes;
     }
