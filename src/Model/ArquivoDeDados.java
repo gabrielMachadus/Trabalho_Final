@@ -42,14 +42,14 @@ public class ArquivoDeDados implements Serializable{
      * @throws ClassNotFoundException 
      */
      public  ArrayList lerArquivoDeDados(String nome_arquivo) throws ClassNotFoundException{
-        ArrayList lista = null;
+        ArrayList lista = new ArrayList();
          try {
             FileInputStream arquivo = new FileInputStream(nome_arquivo);
             ObjectInputStream obj = new ObjectInputStream(arquivo);
             lista = (ArrayList)obj.readObject();
             obj.close();           
         } catch (IOException e) {
-            System.out.print("Exceção no método lerArquivoDeDados"+e.toString());
+            System.out.print("Exceção no método lerArquivoDeDados  - "+e.toString());
         }
         return lista;
     }

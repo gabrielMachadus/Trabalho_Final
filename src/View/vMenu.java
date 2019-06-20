@@ -5,7 +5,6 @@
  */
 package View;
 
-import Model.ArquivoDeDados;
 import Model.Pessoa;
 import java.util.ArrayList;
 
@@ -101,19 +100,10 @@ public class vMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-         ArquivoDeDados ler = new ArquivoDeDados();
-
-        try {
-            lista = ler.lerArquivoDeDados("clientes.txt");
-        } catch (Exception e) { 
-            log.add("Erro ao ler dados do arquivo - Tela vMenu");
-            ler.gravarArquivoDeDados(log, "log.txt");
-        }
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
-    ArrayList<String> log = new ArrayList();
-    ArrayList lista = new ArrayList();
-    
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

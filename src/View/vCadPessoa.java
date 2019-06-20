@@ -6,6 +6,7 @@
 package View;
 
 import Controller.ControllerPessoa;
+import Model.ArquivoDeDados;
 import Model.Endereco;
 import Model.Pessoa;
 import java.text.ParseException;
@@ -390,7 +391,7 @@ public class vCadPessoa extends javax.swing.JFrame {
         bloqueiaComponentesTexto();
         jButtonAlterar.setEnabled(false);
         jButtonExcluir.setEnabled(false);
-        preencheJListGenerica();
+        preencheJList();
     }//GEN-LAST:event_formComponentShown
     
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
@@ -505,16 +506,25 @@ public class vCadPessoa extends javax.swing.JFrame {
        jPasswordField.setEnabled(true);
     }
     //alterar metodo para carregar dados de arquivo de texto
-    void preencheJListGenerica(){
-        Controller.ControllerPessoa cp = new ControllerPessoa();
-        clientes = cp.preencherLista();
-        ArrayList<String> nomes =  cp.mostrarLista(clientes);
-            
-        DefaultListModel model = new DefaultListModel();
-        for (String s : nomes) {
-            jListClientes.setModel(model);
-            model.addElement(s);
-        }      
+    void preencheJList(){
+          ArrayList<String> log =  new ArrayList<>();
+          ArquivoDeDados ad = new ArquivoDeDados();
+          try {
+            Controller.ControllerPessoa cp = new ControllerPessoa();
+          
+            clientes = ad.lerArquivoDeDados("clientes.txt");
+            ArrayList<String> nomes =  cp.mostrarLista(clientes);
+
+            DefaultListModel model = new DefaultListModel();
+            for (String s : nomes) {
+                jListClientes.setModel(model);
+                model.addElement(s);
+            }    
+        } catch (Exception e) {
+            log.add("Exceção aberta na tela vCadPessoa ao Ler arquivo de dados clientes.txt");
+            ad.gravarArquivoDeDados(log, "log.txt");
+        }
+          
     }
     
     void atualizaJList(){

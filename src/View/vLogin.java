@@ -25,7 +25,7 @@ public class vLogin extends javax.swing.JFrame {
      */
     public vLogin() {
         initComponents();
-        
+        ControllerPessoa cp = new ControllerPessoa();
         ArquivoDeDados ad = new ArquivoDeDados();
         try {
             clientes = ad.lerArquivoDeDados("clientes.txt");
